@@ -25,4 +25,9 @@ Please make sure to update tests as appropriate.
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ## Status
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/kennedyshead/alice/CodeQL?label=CodeQL) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/kennedyshead/alice/Python%20application?label=Python%20application) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/kennedyshead/alice/Dependency%20Review?label=Dependency%20Review)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/kennedyshead/alice/CodeQL?label=CodeQL)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/kennedyshead/alice/Python%20application?label=Python%20application)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/kennedyshead/alice/Dependency%20Review?label=Dependency%20Review)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/kennedyshead/alice)
+![GitHub](https://img.shields.io/github/license/kennedyshead/alice)
+![GitHub contributors](https://img.shields.io/github/contributors/kennedyshead/alice)
