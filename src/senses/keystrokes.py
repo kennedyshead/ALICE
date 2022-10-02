@@ -2,10 +2,13 @@
 Keystrokes AKA keyboard input
 """
 import asyncio
-import logging
+import json
 import sys
 from asyncio import AbstractEventLoop, StreamReader
+from queue import Queue
 from typing import TextIO
+
+from conscious import Event
 
 
 class KeyBoard:
@@ -14,7 +17,7 @@ class KeyBoard:
     """
 
     @staticmethod
-    async def listen() -> None:
+    async def listen(queue: Queue) -> None:
         """
         Keyboard listener
         :return:
@@ -28,13 +31,19 @@ class KeyBoard:
 
         async for line in reader:
             decoded: str = line.decode().strip("\n")
-            logging.info(decoded)
-        await asyncio.sleep(1)
+            queue.put(
+                json.dumps(
+                    {
+                        "message": decoded,
+                        "event": Event.NEW_TEXT,
+                    }
+                )
+            )
 
     @classmethod
-    async def loop(cls):
+    async def loop(cls, queue: Queue):
         """
         Keyboard loop
         :return:
         """
-        await cls.listen()
+        await cls.listen(queue)
