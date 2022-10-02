@@ -5,6 +5,7 @@ import asyncio
 import logging
 import sys
 from asyncio import AbstractEventLoop
+from queue import Queue
 from threading import Thread
 from typing import Any, List, Tuple, Union
 
@@ -23,25 +24,27 @@ logging.basicConfig(
 )
 
 
-async def work(cls: Union[Conscious, KeyBoard]):
+async def work(cls: Union[Conscious, KeyBoard], queue: Queue):
     """
     Work starter
+    :param queue:
     :param cls:
     :return:
     """
     while True:
-        await cls.loop()
+        await cls.loop(queue)
 
 
-def worker(cls: Union[Conscious, KeyBoard]) -> None:
+def worker(cls: Union[Conscious, KeyBoard], queue: Queue) -> None:
     """
     Worker
+    :param queue:
     :param cls: Worker class
     :return:
     """
     new_loop: AbstractEventLoop = asyncio.new_event_loop()
     asyncio.set_event_loop(new_loop)
-    new_loop.run_until_complete(work(cls))
+    new_loop.run_until_complete(work(cls, queue))
 
 
 def main() -> None:
@@ -50,8 +53,9 @@ def main() -> None:
     :return:
     """
     threads: Tuple = ()
+    queue: Queue = Queue()
     for _cls in multi:
-        thread: Thread = Thread(target=worker, args=[_cls])
+        thread: Thread = Thread(target=worker, args=[_cls, queue])
         threads += (thread,)
         thread.start()
 
